@@ -1,0 +1,57 @@
+@import "src/theme/colors.scss";
+
+.page-title {
+    border-bottom: 1px solid $border-color;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    font-size: 2em;
+    color: $primary-color;
+}
+.customer-content {
+    .search-container {
+        mat-form-field {
+            input, mat-select {
+                height: 16px;
+                line-height: 16px;
+            }
+            ::ng-deep .mat-select-value {
+                overflow: revert;
+            }
+
+            ::ng-deep .mat-select-placeholder {
+                position: relative;
+                bottom: 0.2em;
+                left: 0.4em;
+            }
+        }
+        .add-customer {
+            float: right;
+        }
+    }       
+}
+
+//Rounded Borders of control
+::ng-deep .mat-form-field-outline-start {
+    border-radius: 28px 0 0 28px !important;
+    min-width: 28px !important;
+}
+  
+::ng-deep .mat-form-field-outline-end {
+    border-radius: 0 28px 28px 0 !important;
+}
+//--------------------------
+
+button {
+    color: $primary-text-color;
+}
+
+.install {
+    color: $installed;
+}
+.pending {
+    color: $pending;
+}
+.status {
+    display: list-item;
+}

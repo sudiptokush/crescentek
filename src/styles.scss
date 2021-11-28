@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../src/theme/colors.scss';
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+button {
+    background-image: linear-gradient(to right,$gradient1,$gradient2);
+} 
+
+// Dialog Box
+.mat-dialog-container {
+    padding: 0px !important;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.orange {
+    background: orange;
+}
+
+.green {
+    background: green;
+}

@@ -1,0 +1,185 @@
+<div class="page-title pl-5">
+    <i class="material-icons header-icon" (click)="customerList()">arrow_back</i>
+    New customer
+</div>
+<div class="add-customer-container">
+    <div class="left">
+        <div class="basic-info pointer" (click)="addCustomer()" [class.highlight]="show === 'Customer'">
+            <div class="type">PERSONAL</div>
+            <div class="title">Customer info</div>
+        </div>
+        <div class="sites" [class.highlight]="show === 'Site' || show === 'Subsite'">
+            <div class="type">SITES</div>
+            <div class="content" >
+                <ng-container *ngIf="showSiteDropdown">
+                    <mat-form-field >
+                        <mat-select [(ngModel)]="selectedSiteId">
+                            <mat-option *ngFor="let site of siteDropdownList" [value]="site.id">{{site.siteName}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div class="display-subsite" *ngFor="let subsite of broker.customerList | filterSubsite: customerId : selectedSiteId">
+                        <span class="dot" [ngClass]="subsite.status === 'Pending' ? 'orange' : 'green'"></span>
+                        {{subsite.label}}
+                    </div>
+                    <div class="add" (click)="addSubsite()">
+                        <i class="material-icons pointer">add</i> 
+                        <div class="pointer" (click)="addSubsite()">ADD</div>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="action">
+                <i class="material-icons pointer" (click)="submitSite()">add</i> 
+                <div class="pointer" (click)="submitSite()">ADD SITE</div>
+            </div>
+        </div>
+        <div class="users" [class.highlight]="show === 'User'"> 
+            <div class="type">USERS</div>
+            <div class="content"></div>
+            <div class="action">
+                <i class="material-icons pointer" (click)="addUser()">add</i> 
+                <div class="pointer" (click)="addUser()">ADD USER</div>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+        <div class="customer-info" *ngIf="show === 'Customer'">
+            <div class="sub-title">Customer info</div>
+            <form class="customer-form" [formGroup]="customerForm" (ngSubmit)="submitCustomerInfo()" >
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-6">
+                        <input matInput placeholder="Customer Name" formControlName="customerName">
+                        <mat-error *ngIf="customerHasError('customerName', 'required')">Customer Name is required</mat-error>
+                        <mat-error *ngIf="customerHasError('customerName', 'patternInvalid')">Please enter valid Customer Name</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-6">
+                        <input matInput placeholder="Contact Person" formControlName="contactPerson">
+                        <mat-error *ngIf="customerHasError('contactPerson', 'required')">Contact Person is required</mat-error>
+                        <mat-error *ngIf="customerHasError('contactPerson', 'patternInvalid')">Please enter valid Contact Person</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="row"> 
+                    <mat-form-field appearance="outline" class="col-6">
+                        <input matInput placeholder="Mobile phone number" formControlName="phoneNo">
+                        <mat-error *ngIf="customerHasError('phoneNo', 'required')">Phone Number is required</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-6">
+                        <input matInput placeholder="Email Address" formControlName="emailAddress">
+                        <mat-error *ngIf="customerHasError('emailAddress', 'required')">Email Address is required</mat-error>
+                        <mat-error *ngIf="customerHasError('emailAddress', 'patternInvalid')">Please enter valid Email Address</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="form-field">
+                    Is this business account ?
+                    <mat-button-toggle-group #group="matButtonToggleGroup" class="toggle-button" name="isBusiness" 
+                        [value]="IsBusiness" (change)="IsBusinessAccount(group.value)">
+                        <mat-button-toggle value='No'>No</mat-button-toggle>
+                        <mat-button-toggle value='Yes'>Yes</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
+                <div class="button-container w-100">
+                    <button id="customer-form-submit" mat-raised-button type="submit" class="sumbit-button">Add</button>
+                </div>
+            </form>
+        </div>
+        <div class="add-site" *ngIf="show === 'Site'">
+            <div class="sub-title"> {{siteForm.getRawValue().siteName}} </div>
+            <form class="site-form" [formGroup]="siteForm" (ngSubmit)="submitSite()" >
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-6">
+                        <input matInput placeholder="Site Name" formControlName="siteName">
+                        <mat-error *ngIf="siteHasError('siteName', 'required')">Site Name is required</mat-error>
+                        <mat-error *ngIf="siteHasError('siteName', 'patternInvalid')">Please enter valid Site Name</mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-6">
+                        <input matInput placeholder="Enter first address..." formControlName="firstAddress">
+                        <mat-error *ngIf="siteHasError('firstAddress', 'required')">First Address is required</mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-6">
+                        <mat-select placeholder="Street" formControlName="street">
+                            <mat-option value="Primary">Primary</mat-option>
+                            <mat-option value="Secondary">Secondary</mat-option>
+                            <mat-option value="Tertiary">Tertiary</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-6">
+                        <mat-select placeholder="City" formControlName="city">
+                            <mat-option value="Kolkata">Kolkata</mat-option>
+                            <mat-option value="Berlin">Berlin</mat-option>
+                            <mat-option value="Moscow">Moscow</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-6">
+                        <mat-select placeholder="ZipCode" formControlName="zipcode">
+                            <mat-option value="7001293">7001293</mat-option>
+                            <mat-option value="7001294">7001294</mat-option>
+                            <mat-option value="7001295">7001295</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-6">
+                        <mat-select placeholder="Country" formControlName="country">
+                            <mat-option value="India">India</mat-option>
+                            <mat-option value="Germany">Germany</mat-option>
+                            <mat-option value="Russia">Russia</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-12">
+                        <textarea matInput placeholder="Add description..." formControlName="description"
+                        aria-multiline="true"></textarea>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+        <div class="add-subsite" *ngIf="show === 'Subsite'">
+            <div class="sub-title"> {{subsiteForm.getRawValue().label}} </div>
+            <form class="subsite-form" [formGroup]="subsiteForm" (ngSubmit)="submitSubsite()" >
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-12">
+                        <input matInput placeholder="Label" formControlName="label">
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-6">
+                        <input matInput placeholder="Floor / Building" formControlName="floor">
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="col-6">
+                        <mat-select placeholder="Status" formControlName="status">
+                            <mat-select-trigger>
+                                <span class="dot" [ngClass]="subsiteForm.getRawValue().status === 'Pending' ? 'orange' : 'green'"></span>
+                                <span fxFlex = '1 0 auto'></span>
+                                {{subsiteForm.getRawValue().status}}
+                            </mat-select-trigger>
+                            <mat-option value="Pending">
+                                <span class="dot orange"></span>
+                                <span fxFlex = '1 0 auto'></span>
+                                Pending
+                            </mat-option>
+                            <mat-option value="Installed">
+                                <span class="dot green"></span>
+                                <span fxFlex = '1 0 auto'></span>
+                                Installed    
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="row">
+                    <mat-form-field appearance="outline" class="col-12">
+                        <textarea matInput placeholder="Add description..." formControlName="description"
+                        aria-multiline="true"></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="button-container w-100">
+                    <button mat-raised-button type="submit" class="sumbit-button">Add</button>
+                </div>
+            </form>
+        </div>
+        <div class="add-user" *ngIf="show === 'User'">
+            ADD USER
+        </div>
+    </div>
+</div>

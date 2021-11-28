@@ -1,0 +1,5 @@
+<div class="menu-item" *ngFor="let menu of menuList" (click)="navigate(menu.id, menu.route)" 
+    [class.highlight]="menu.id === selectedMenuId">
+    <mat-icon>{{menu.icon}}</mat-icon>        
+    <div class="text">{{menu.name}}</div>
+</div>

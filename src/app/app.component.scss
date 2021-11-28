@@ -1,0 +1,37 @@
+@import "../theme/colors.scss";
+
+.parent-container {
+    height: 100vh;
+    .left-container {
+        .header {
+            border-right: 1px solid $border-color;
+            padding: 0 .5rem 0 .5rem;
+        }
+        .menu {
+            height: 85%;
+            font-size: 1.2em;
+            border-right: 1px solid $border-color;
+            text-align: -webkit-center;
+        }
+    }
+    .right-container {
+        .content {
+            height: 85%;
+        }
+    }
+
+    .left-container, .right-container {
+        height: 100%;
+        .header {
+            height: 15%;
+            background: $primary-color;
+            color: $primary-text-color;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            svg {
+                fill: $primary-text-color;
+            }
+        }
+    }
+}

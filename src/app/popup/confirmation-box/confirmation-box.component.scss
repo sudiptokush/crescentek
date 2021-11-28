@@ -1,0 +1,30 @@
+@import 'src/theme/colors.scss';
+
+.confirmation-box-container {
+    width: 450px;
+    .dialog-title {
+        background-image: linear-gradient(to right,$gradient1,$gradient2);
+        color: $primary-text-color;
+        height: 30px;
+        line-height: 30px;
+        font-size: 1.2em;
+        padding-left: .5em;
+    }
+    
+    .dialog-content {
+        min-height: 40px;
+        padding: 0.5em;
+    }
+    
+    .button-container {
+        padding: .5em;
+        float: right;
+        .dialog-button {
+            background-image: linear-gradient(to right,$gradient1,$gradient2);
+            color: $primary-text-color;
+            width: 65px;
+            height: 30px;
+            margin-right: 0.5em;
+        }
+    }
+}

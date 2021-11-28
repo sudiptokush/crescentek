@@ -1,0 +1,27 @@
+@import "src/theme/colors.scss";
+
+.menu-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: normal;
+    justify-content: flex-start;
+    height: 40px;
+    width: 80%;
+    color: $menu-text;
+    border-radius: 15px;
+    &:hover {
+        background:$menu-background-highlighter;
+        color: $menu-text-highlighter;
+    }
+
+    mat-icon {
+        margin: 0 1em;
+        color: $primary-color;
+    }
+}
+
+.highlight {
+    background:$menu-background-highlighter;
+    color: $menu-text-highlighter;
+}

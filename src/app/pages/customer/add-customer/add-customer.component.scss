@@ -1,0 +1,150 @@
+@import "src/theme/colors.scss";
+
+.page-title {
+    color: $primary-color;
+    border-bottom: 1px solid $border-color;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    font-size: 2em;
+    .header-icon {
+        margin-right: 1em;
+    }
+}
+.add-customer-container {
+    width:100%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    .left {
+        width: 30%;
+        height: 100%;
+        border-right: 1px solid $border-color;
+
+        .basic-info, .sites, .users {
+            .type {
+                padding: 1em 0.5em 0.5em 2em;
+                font-size: .8em;
+            }
+            .content {
+                padding: .5em 0.5em 0.5em 1.5em;
+                font-size: 1.2em;
+                display: flex;
+                flex-direction: column;
+                ::ng-deep .mat-form-field-underline {
+                    background-color: transparent;
+                }
+                .display-subsite {
+                    margin: .5em 0 1em 0;
+                }
+                .add {
+                    color: $primary-color;
+                    i {
+                        font-size: 1.5em;
+                        margin-right: 5px;
+                    }
+                    display: flex;
+                    flex-direction: row;
+                    font-size: .8em;
+                }
+            }
+        }
+
+        .sites, .users {
+            .action {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end;
+                padding: 2em;
+                color: $primary-color;
+                i {
+                    font-size: 1.4em;
+                    margin-right: .5em;
+                }
+            }
+        }
+
+        .basic-info {
+            height: 15%;
+            .title {
+                padding-left: 1.3em;
+                font-size: 1.2em;
+                font-weight: bold;
+            }
+        }
+        .sites {
+            min-height: 30%;
+        }
+        .users {
+            min-height: 30%;
+        }
+    }
+    
+    .right {
+        width: 68%;
+        height: 100%;
+        .customer-info, .add-site, .add-subsite {
+            padding: 1.5em;
+            .sub-title {
+                font-size: 1.5em;
+                padding: 1.5em .5em;
+            }
+            .button-container {
+                button {
+                    float: right;
+                    margin-right: 3em;
+                    color: $primary-text-color;
+                }
+            }
+        }
+        .customer-info { 
+            .customer-form {
+                .form-field {
+                    .toggle-button {
+                        border-top-left-radius: 25px;
+                        border-bottom-left-radius: 25px;
+                        border-top-right-radius: 25px;
+                        border-bottom-right-radius: 25px;
+                        margin-left: 1em;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+//Rounded Borders of control
+::ng-deep .mat-form-field-outline-start {
+    border-radius: 28px 0 0 28px !important;
+    min-width: 28px !important;
+}
+  
+::ng-deep .mat-form-field-outline-end {
+    border-radius: 0 28px 28px 0 !important;
+}
+// --------------------------
+
+
+// Toggle Button
+::ng-deep .mat-button-toggle-checked {
+    color:$primary-text-color !important;
+    background: $primary-color !important;
+}
+
+::ng-deep button:focus {
+    outline: none !important;
+}
+// --------------------------
+
+.highlight {
+    background: $basic-info-background;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+    display: inline-block;
+}

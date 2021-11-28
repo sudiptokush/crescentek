@@ -1,0 +1,9 @@
+@import "src/theme/colors.scss";
+
+.page-title {
+    border-bottom: 1px solid $border-color;
+    height: 15%;
+    display: flex;
+    align-items: center;
+    font-size: 2em;
+}
